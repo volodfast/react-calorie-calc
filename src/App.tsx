@@ -1,10 +1,11 @@
-import CallorieForm from './components/callorieForm';
+import { Container } from '@material-ui/core';
+import AddProductForm from 'modules/product/containers/AddProductForm';
 
 function App() {
   return (
-    <div>
-      <CallorieForm />
-    </div>
+    <Container maxWidth="sm">
+      <AddProductForm />
+    </Container>
   );
 }
 
