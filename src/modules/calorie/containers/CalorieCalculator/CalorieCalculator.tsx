@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Box, TextField } from '@material-ui/core';
+import { Box, Button, TextField } from '@material-ui/core';
 
 const CalorieCalculator = () => {
   const [product, setProduct] = useState('');
@@ -109,6 +109,11 @@ const CalorieCalculator = () => {
           <Box component="span">Extra information: </Box>
           <Box component="span">{extra}</Box>
         </Box>
+      </Box>
+      <Box>
+        <Button variant="contained" color="primary">
+          Send
+        </Button>
       </Box>
     </Box>
   );
