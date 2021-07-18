@@ -52,7 +52,7 @@ const CalorieCalculator = () => {
 
   return (
     <Box style={{ textAlign: 'center' }}>
-      <div>Select product or type required info</div>
+      <Box>Select product or type required info</Box>
       <Box>
         <TextField
           id="product"
