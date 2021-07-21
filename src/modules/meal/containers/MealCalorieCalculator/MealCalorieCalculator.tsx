@@ -3,6 +3,8 @@ import { Box, Button } from '@material-ui/core';
 import { nanoid } from 'nanoid';
 // components
 import ProductForm from 'modules/product/containers/components/ProductForm';
+// styles
+import { useMealCalorieCalculatorStyles } from './MealCalorieCalculator.styled';
 
 export type MealProductType = {
   id: string;
@@ -94,27 +96,28 @@ const MealCaloriCalculator: FC = () => {
     dispatch({ type: MealCalculatorActionEnum.REMOVE_PRODUCT, id });
   }, []);
 
+  const classNames = useMealCalorieCalculatorStyles();
+
   return (
-    <Box>
-      <Box>Meal Calorie Calculator</Box>
-      <Box>
-        <Box>
-          Total: <Box component="span">{total}</Box>
-        </Box>
+    <Box className={classNames.container}>
+      <Box className={classNames.title}>Meal Calorie Calculator</Box>
+      <Box className={classNames.totalCalorie}>
+        Total: <Box component="span">{total}</Box>
       </Box>
-      <Box>
+      <Box className={classNames.productList}>
         {productList.map((product) => {
           return (
-            <ProductForm
-              key={product.id}
-              product={product}
-              onChangeProduct={handleChangeProduct}
-              onRemoveProduct={handleRemoveProduct}
-            />
+            <Box key={product.id} className={classNames.productWrapper}>
+              <ProductForm
+                product={product}
+                onChangeProduct={handleChangeProduct}
+                onRemoveProduct={handleRemoveProduct}
+              />
+            </Box>
           );
         })}
       </Box>
-      <Box style={{ textAlign: 'center' }}>
+      <Box className={classNames.controls}>
         <Button variant="contained" color="primary" onClick={handleAddProduct}>
           Add Product
         </Button>
