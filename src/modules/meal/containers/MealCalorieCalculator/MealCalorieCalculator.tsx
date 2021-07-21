@@ -1,9 +1,11 @@
 import React, { FC, useCallback, useReducer } from 'react';
 import { Box } from '@material-ui/core';
+import { nanoid } from 'nanoid';
 // components
 import ProductForm from 'modules/product/containers/components/ProductForm';
 
 export type MealProductType = {
+  id: string;
   name: string;
   caloriesPer100g: number;
   weight: number;
@@ -29,6 +31,7 @@ const initialMealCalculatorState: MealCalculatorState = {
   total: 0,
   productList: [
     {
+      id: nanoid(),
       name: 'Buckwheat',
       caloriesPer100g: 330,
       weight: 120,
