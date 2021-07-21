@@ -1,5 +1,8 @@
 import { FC, useCallback } from 'react';
 import { Box, TextField } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+// styles
+import { useProductFromStyles } from './ProductForm.styled';
 // interfaces
 import { ProductFormProps } from './ProductForm.interface';
 
@@ -14,14 +17,23 @@ const ProductForm: FC<ProductFormProps> = (props) => {
     onRemoveProduct(product.id);
   }, [onRemoveProduct, product.id]);
 
+  const classes = useProductFromStyles();
+
   return (
-    <Box style={{ textAlign: 'center' }}>
-      <Box style={{ cursor: 'pointer' }} onClick={handleRemoveProduct}>
-        Remove Product
+    <Box className={classes.container}>
+      <Box
+        className={classes.closeIcon}
+        component="span"
+        onClick={handleRemoveProduct}
+      >
+        <CloseIcon />
       </Box>
-      <Box>Select product or type product info by hand</Box>
+      <Box className={classes.title} component="h4">
+        Product
+      </Box>
       <Box>
         <TextField
+          className={classes.input}
           id="name"
           label="Product Name"
           value={product.name}
@@ -30,6 +42,7 @@ const ProductForm: FC<ProductFormProps> = (props) => {
       </Box>
       <Box>
         <TextField
+          className={classes.input}
           id="calories"
           label="Calories (kcal per 100g)"
           value={product.caloriesPer100g}
@@ -38,6 +51,7 @@ const ProductForm: FC<ProductFormProps> = (props) => {
       </Box>
       <Box>
         <TextField
+          className={classes.input}
           id="weight"
           label="Weight (grams)"
           value={product.weight}
@@ -45,25 +59,12 @@ const ProductForm: FC<ProductFormProps> = (props) => {
         />
       </Box>
 
-      <Box>
-        <Box>Overall information</Box>
-        <Box>
-          <Box component="span">Product: </Box>
-          <Box component="span">{product.name}</Box>
+      <Box className={classes.overallInfo}>
+        <Box component="span">Overall calories: </Box>
+        <Box component="span" className={classes.totalCalories}>
+          {product.weight * product.caloriesPer100g}
         </Box>
-        <Box>
-          <Box component="span">{product.caloriesPer100g}</Box>
-          <Box component="span"> kcal / 100 g</Box>
-        </Box>
-        <Box>
-          <Box component="span">{product.weight}</Box>
-          <Box component="span"> grams</Box>
-        </Box>
-        <Box>
-          <Box component="span">Overall calories: </Box>
-          <Box component="span">{product.weight * product.caloriesPer100g}</Box>
-          <Box component="span"> kcal</Box>
-        </Box>
+        <Box component="span"> kcal</Box>
       </Box>
     </Box>
   );
