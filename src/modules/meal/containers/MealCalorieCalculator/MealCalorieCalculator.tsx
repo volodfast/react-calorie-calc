@@ -100,9 +100,13 @@ const MealCaloriCalculator: FC = () => {
 
   return (
     <Box className={classNames.container}>
-      <Box className={classNames.title}>Meal Calorie Calculator</Box>
-      <Box className={classNames.totalCalorie}>
-        Total: <Box component="span">{total}</Box>
+      <Box className={classNames.infoContainer}>
+        <Box className={classNames.title} component="h1">
+          Meal Calorie Calculator
+        </Box>
+        <Box className={classNames.totalCalorie}>
+          Total: <Box component="span">{total}</Box>
+        </Box>
       </Box>
       <Box className={classNames.controls}>
         <Button variant="contained" color="primary" onClick={handleAddProduct}>

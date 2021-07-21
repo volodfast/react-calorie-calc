@@ -2,8 +2,14 @@ import { makeStyles } from '@material-ui/core';
 
 export const useMealCalorieCalculatorStyles = makeStyles({
   container: {},
+  infoContainer: {
+    textAlign: 'center',
+    padding: '20px',
+  },
   title: {},
-  totalCalorie: {},
+  totalCalorie: {
+    fontSize: 28,
+  },
   productListPlaceholder: {
     height: 80,
     display: 'flex',
