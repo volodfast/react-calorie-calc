@@ -1,8 +1,9 @@
+import React, { FC, useCallback, useReducer } from 'react';
 import { Box } from '@material-ui/core';
+// components
 import ProductForm from 'modules/product/containers/components/ProductForm';
-import React, { FC, useReducer } from 'react';
 
-type MealProductType = {
+export type MealProductType = {
   name: string;
   caloriesPer100g: number;
   weight: number;
@@ -26,7 +27,13 @@ type MealCalculatorAction =
 
 const initialMealCalculatorState: MealCalculatorState = {
   total: 0,
-  productList: [],
+  productList: [
+    {
+      name: 'Buckwheat',
+      caloriesPer100g: 330,
+      weight: 120,
+    },
+  ],
 };
 
 function reducer(state: MealCalculatorState, action: MealCalculatorAction) {
@@ -55,6 +62,8 @@ const MealCaloriCalculator: FC = () => {
     initialMealCalculatorState
   );
 
+  const handleChangeProduct = useCallback(() => {}, []);
+
   return (
     <Box>
       <Box>Meal Calorie Calculator</Box>
@@ -64,7 +73,14 @@ const MealCaloriCalculator: FC = () => {
         </Box>
       </Box>
       <Box>
-        <ProductForm />
+        {productList.map((product) => {
+          return (
+            <ProductForm
+              product={product}
+              changeProduct={handleChangeProduct}
+            />
+          );
+        })}
       </Box>
     </Box>
   );
