@@ -1,1 +1,1 @@
-export { default } from './MealCaloriCalculator';
+export { default } from './MealCalorieCalculator';
