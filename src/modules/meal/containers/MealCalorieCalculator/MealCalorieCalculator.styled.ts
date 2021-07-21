@@ -4,14 +4,25 @@ export const useMealCalorieCalculatorStyles = makeStyles({
   container: {},
   title: {},
   totalCalorie: {},
-  productList: {
+  productListPlaceholder: {
+    height: 80,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexWrap: 'wrap',
   },
-  productWrapper: { flex: 1, padding: 10 },
+  productList: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+  },
+  productWrapper: {
+    flexBasis: 1,
+    padding: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   controls: {
     textAlign: 'center',
+    marginBottom: 10,
   },
 });

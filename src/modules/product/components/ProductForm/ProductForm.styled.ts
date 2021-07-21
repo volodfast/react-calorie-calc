@@ -6,8 +6,9 @@ export const useProductFromStyles = makeStyles({
     border: '1px solid black',
     borderRadius: 10,
     textAlign: 'center',
-    padding: '10px 10px 15px',
-    width: 200,
+    padding: '10px 20px 15px',
+    width: '100%',
+    minWidth: 200,
   },
   closeIcon: {
     position: 'absolute',
@@ -27,6 +28,7 @@ export const useProductFromStyles = makeStyles({
   },
   input: {
     marginBottom: 20,
+    width: '100%',
   },
   overallInfo: {},
   totalCalories: {

@@ -104,24 +104,30 @@ const MealCaloriCalculator: FC = () => {
       <Box className={classNames.totalCalorie}>
         Total: <Box component="span">{total}</Box>
       </Box>
-      <Box className={classNames.productList}>
-        {productList.map((product) => {
-          return (
-            <Box key={product.id} className={classNames.productWrapper}>
-              <ProductForm
-                product={product}
-                onChangeProduct={handleChangeProduct}
-                onRemoveProduct={handleRemoveProduct}
-              />
-            </Box>
-          );
-        })}
-      </Box>
       <Box className={classNames.controls}>
         <Button variant="contained" color="primary" onClick={handleAddProduct}>
           Add Product
         </Button>
       </Box>
+      {productList.length ? (
+        <Box className={classNames.productList}>
+          {productList.map((product) => {
+            return (
+              <Box key={product.id} className={classNames.productWrapper}>
+                <ProductForm
+                  product={product}
+                  onChangeProduct={handleChangeProduct}
+                  onRemoveProduct={handleRemoveProduct}
+                />
+              </Box>
+            );
+          })}
+        </Box>
+      ) : (
+        <Box className={classNames.productListPlaceholder}>
+          Add some products into your meal!
+        </Box>
+      )}
     </Box>
   );
 };
