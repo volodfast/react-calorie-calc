@@ -62,7 +62,7 @@ const ProductForm: FC<ProductFormProps> = (props) => {
       <Box className={classes.overallInfo}>
         <Box component="span">Overall calories: </Box>
         <Box component="span" className={classes.totalCalories}>
-          {product.weight * product.caloriesPer100g}
+          {(product.weight * product.caloriesPer100g) / 100}
         </Box>
         <Box component="span"> kcal</Box>
       </Box>
