@@ -1,4 +1,4 @@
-import { MealProductType } from 'modules/meal/containers/MealCalorieCalculator/MealCalorieCalculator';
+import { MealProductType } from 'modules/meal/containers/MealCalorieCalculator/MealCalorieCalculator.interface';
 
 export type ProductFormProps = {
   product: MealProductType;

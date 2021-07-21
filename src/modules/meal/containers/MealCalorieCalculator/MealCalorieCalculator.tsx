@@ -5,29 +5,13 @@ import { nanoid } from 'nanoid';
 import ProductForm from 'modules/product/components/ProductForm';
 // styles
 import { useMealCalorieCalculatorStyles } from './MealCalorieCalculator.styled';
-
-export type MealProductType = {
-  id: string;
-  name: string;
-  caloriesPer100g: number;
-  weight: number;
-};
-
-type MealCalculatorState = {
-  total: number;
-  productList: MealProductType[];
-};
-
-enum MealCalculatorActionEnum {
-  ADD_PRODUCT = 'ADD_PRODUCT',
-  REMOVE_PRODUCT = 'REMOVE_PRODUCT',
-  CHANGE_PRODUCT = 'CHANGE_PRODUCT',
-}
-
-type MealCalculatorAction =
-  | { type: MealCalculatorActionEnum.ADD_PRODUCT }
-  | { type: MealCalculatorActionEnum.REMOVE_PRODUCT; id: string }
-  | { type: MealCalculatorActionEnum.CHANGE_PRODUCT; product: MealProductType };
+// interfaces
+import {
+  MealCalculatorAction,
+  MealCalculatorActionEnum,
+  MealCalculatorState,
+  MealProductType,
+} from './MealCalorieCalculator.interface';
 
 const initialMealCalculatorState: MealCalculatorState = {
   total: 0,

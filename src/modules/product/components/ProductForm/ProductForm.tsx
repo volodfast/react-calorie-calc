@@ -5,7 +5,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useProductFromStyles } from './ProductForm.styled';
 // interfaces
 import { ProductFormProps } from './ProductForm.interface';
-import { MealProductType } from 'modules/meal/containers/MealCalorieCalculator/MealCalorieCalculator';
+import { MealProductType } from 'modules/meal/containers/MealCalorieCalculator/MealCalorieCalculator.interface';
 
 const ProductForm: FC<ProductFormProps> = (props) => {
   const { product, onChangeProduct, onRemoveProduct } = props;
