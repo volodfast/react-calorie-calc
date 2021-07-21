@@ -2,7 +2,7 @@ import { FC, useCallback, useReducer } from 'react';
 import { Box, Button } from '@material-ui/core';
 import { nanoid } from 'nanoid';
 // components
-import ProductForm from 'modules/product/containers/components/ProductForm';
+import ProductForm from 'modules/product/components/ProductForm';
 // styles
 import { useMealCalorieCalculatorStyles } from './MealCalorieCalculator.styled';
 
