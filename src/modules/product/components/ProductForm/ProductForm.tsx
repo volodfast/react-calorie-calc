@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback } from 'react';
+import { useCallback, memo, ChangeEvent, FC } from 'react';
 import { Box, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 // styles
@@ -91,4 +91,4 @@ const ProductForm: FC<ProductFormProps> = (props) => {
   );
 };
 
-export default ProductForm;
+export default memo(ProductForm);
