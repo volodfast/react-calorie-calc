@@ -1,4 +1,5 @@
 import { Box } from '@material-ui/core';
+import ProductForm from 'modules/product/containers/components/ProductForm';
 import React, { FC, useReducer } from 'react';
 
 type MealProductType = {
@@ -61,6 +62,9 @@ const MealCaloriCalculator: FC = () => {
         <Box>
           Total: <Box component="span">{total}</Box>
         </Box>
+      </Box>
+      <Box>
+        <ProductForm />
       </Box>
     </Box>
   );
