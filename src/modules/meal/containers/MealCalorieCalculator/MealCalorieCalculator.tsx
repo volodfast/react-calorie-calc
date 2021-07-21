@@ -27,7 +27,7 @@ enum MealCalculatorActionEnum {
 type MealCalculatorAction =
   | { type: MealCalculatorActionEnum.ADD_PRODUCT }
   | { type: MealCalculatorActionEnum.REMOVE_PRODUCT; id: string }
-  | { type: MealCalculatorActionEnum.CHANGE_PRODUCT };
+  | { type: MealCalculatorActionEnum.CHANGE_PRODUCT; product: MealProductType };
 
 const initialMealCalculatorState: MealCalculatorState = {
   total: 0,
@@ -71,7 +71,18 @@ function reducer(state: MealCalculatorState, action: MealCalculatorAction) {
     }
 
     case MealCalculatorActionEnum.CHANGE_PRODUCT: {
-      return state;
+      const updatedState: MealCalculatorState = {
+        ...state,
+        productList: state.productList.map((product) => {
+          if (product.id !== action.product.id) {
+            return product;
+          }
+
+          return action.product;
+        }),
+      };
+
+      return updatedState;
     }
 
     default: {
@@ -86,7 +97,9 @@ const MealCaloriCalculator: FC = () => {
     initialMealCalculatorState
   );
 
-  const handleChangeProduct = useCallback(() => {}, []);
+  const handleChangeProduct = useCallback((product: MealProductType) => {
+    dispatch({ type: MealCalculatorActionEnum.CHANGE_PRODUCT, product });
+  }, []);
 
   const handleAddProduct = useCallback(() => {
     dispatch({ type: MealCalculatorActionEnum.ADD_PRODUCT });

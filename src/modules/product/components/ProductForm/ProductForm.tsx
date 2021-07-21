@@ -1,17 +1,38 @@
-import { FC, useCallback } from 'react';
+import { ChangeEvent, FC, useCallback } from 'react';
 import { Box, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 // styles
 import { useProductFromStyles } from './ProductForm.styled';
 // interfaces
 import { ProductFormProps } from './ProductForm.interface';
+import { MealProductType } from 'modules/meal/containers/MealCalorieCalculator/MealCalorieCalculator';
 
 const ProductForm: FC<ProductFormProps> = (props) => {
   const { product, onChangeProduct, onRemoveProduct } = props;
 
-  const handleChangeProduct = useCallback(() => {
-    onChangeProduct(product.id);
-  }, [onChangeProduct, product.id]);
+  const createProductChangeHandler = useCallback(
+    (field: keyof MealProductType) => {
+      return (ev: ChangeEvent<HTMLInputElement>) => {
+        let updatedField: string | number = ev.target.value;
+
+        if (field === 'caloriesPer100g' || field === 'weight') {
+          updatedField = parseFloat(updatedField);
+
+          if (Number.isNaN(updatedField)) {
+            updatedField = 0;
+          }
+        }
+
+        const updatedProduct: MealProductType = {
+          ...product,
+          [field]: updatedField,
+        };
+
+        onChangeProduct(updatedProduct);
+      };
+    },
+    [onChangeProduct, product]
+  );
 
   const handleRemoveProduct = useCallback(() => {
     onRemoveProduct(product.id);
@@ -37,7 +58,7 @@ const ProductForm: FC<ProductFormProps> = (props) => {
           id="name"
           label="Product Name"
           value={product.name}
-          onChange={handleChangeProduct}
+          onChange={createProductChangeHandler('name')}
         />
       </Box>
       <Box>
@@ -46,7 +67,7 @@ const ProductForm: FC<ProductFormProps> = (props) => {
           id="calories"
           label="Calories (kcal per 100g)"
           value={product.caloriesPer100g}
-          onChange={handleChangeProduct}
+          onChange={createProductChangeHandler('caloriesPer100g')}
         />
       </Box>
       <Box>
@@ -55,7 +76,7 @@ const ProductForm: FC<ProductFormProps> = (props) => {
           id="weight"
           label="Weight (grams)"
           value={product.weight}
-          onChange={handleChangeProduct}
+          onChange={createProductChangeHandler('weight')}
         />
       </Box>
 

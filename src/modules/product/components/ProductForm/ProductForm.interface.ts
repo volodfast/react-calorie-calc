@@ -2,6 +2,6 @@ import { MealProductType } from 'modules/meal/containers/MealCalorieCalculator/M
 
 export type ProductFormProps = {
   product: MealProductType;
-  onChangeProduct: (id: string) => void;
+  onChangeProduct: (product: MealProductType) => void;
   onRemoveProduct: (id: string) => void;
 };
