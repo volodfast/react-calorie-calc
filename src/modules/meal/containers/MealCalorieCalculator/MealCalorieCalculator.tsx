@@ -24,7 +24,7 @@ enum MealCalculatorActionEnum {
 
 type MealCalculatorAction =
   | { type: MealCalculatorActionEnum.ADD_PRODUCT }
-  | { type: MealCalculatorActionEnum.REMOVE_PRODUCT }
+  | { type: MealCalculatorActionEnum.REMOVE_PRODUCT; id: string }
   | { type: MealCalculatorActionEnum.CHANGE_PRODUCT };
 
 const initialMealCalculatorState: MealCalculatorState = {
@@ -58,7 +58,14 @@ function reducer(state: MealCalculatorState, action: MealCalculatorAction) {
     }
 
     case MealCalculatorActionEnum.REMOVE_PRODUCT: {
-      return state;
+      const updatedState: MealCalculatorState = {
+        ...state,
+        productList: state.productList.filter(
+          (product) => product.id !== action.id
+        ),
+      };
+
+      return updatedState;
     }
 
     case MealCalculatorActionEnum.CHANGE_PRODUCT: {
@@ -79,8 +86,12 @@ const MealCaloriCalculator: FC = () => {
 
   const handleChangeProduct = useCallback(() => {}, []);
 
-  const addProduct = useCallback(() => {
+  const handleAddProduct = useCallback(() => {
     dispatch({ type: MealCalculatorActionEnum.ADD_PRODUCT });
+  }, []);
+
+  const handleRemoveProduct = useCallback((id: string) => {
+    dispatch({ type: MealCalculatorActionEnum.REMOVE_PRODUCT, id });
   }, []);
 
   return (
@@ -97,13 +108,14 @@ const MealCaloriCalculator: FC = () => {
             <ProductForm
               key={product.id}
               product={product}
-              changeProduct={handleChangeProduct}
+              onChangeProduct={handleChangeProduct}
+              onRemoveProduct={handleRemoveProduct}
             />
           );
         })}
       </Box>
       <Box style={{ textAlign: 'center' }}>
-        <Button variant="contained" color="primary" onClick={addProduct}>
+        <Button variant="contained" color="primary" onClick={handleAddProduct}>
           Add Product
         </Button>
       </Box>

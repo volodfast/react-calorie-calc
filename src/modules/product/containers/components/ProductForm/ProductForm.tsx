@@ -4,14 +4,21 @@ import { Box, TextField } from '@material-ui/core';
 import { ProductFormProps } from './ProductForm.interface';
 
 const ProductForm: FC<ProductFormProps> = (props) => {
-  const { product, changeProduct } = props;
+  const { product, onChangeProduct, onRemoveProduct } = props;
 
   const handleChangeProduct = useCallback(() => {
-    changeProduct();
-  }, [changeProduct]);
+    onChangeProduct(product.id);
+  }, [onChangeProduct, product.id]);
+
+  const handleRemoveProduct = useCallback(() => {
+    onRemoveProduct(product.id);
+  }, [onRemoveProduct, product.id]);
 
   return (
     <Box style={{ textAlign: 'center' }}>
+      <Box style={{ cursor: 'pointer' }} onClick={handleRemoveProduct}>
+        Remove Product
+      </Box>
       <Box>Select product or type product info by hand</Box>
       <Box>
         <TextField
