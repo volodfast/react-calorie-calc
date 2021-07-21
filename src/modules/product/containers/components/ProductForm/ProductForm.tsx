@@ -1,5 +1,5 @@
-import React, { FC, useCallback } from 'react';
-import { Box, Button, TextField } from '@material-ui/core';
+import { FC, useCallback } from 'react';
+import { Box, TextField } from '@material-ui/core';
 // interfaces
 import { ProductFormProps } from './ProductForm.interface';
 
@@ -8,7 +8,7 @@ const ProductForm: FC<ProductFormProps> = (props) => {
 
   const handleChangeProduct = useCallback(() => {
     changeProduct();
-  }, []);
+  }, [changeProduct]);
 
   return (
     <Box style={{ textAlign: 'center' }}>
@@ -57,11 +57,6 @@ const ProductForm: FC<ProductFormProps> = (props) => {
           <Box component="span">{product.weight * product.caloriesPer100g}</Box>
           <Box component="span"> kcal</Box>
         </Box>
-      </Box>
-      <Box>
-        <Button variant="contained" color="primary">
-          Send
-        </Button>
       </Box>
     </Box>
   );

@@ -1,5 +1,5 @@
-import React, { FC, useCallback, useReducer } from 'react';
-import { Box } from '@material-ui/core';
+import { FC, useCallback, useReducer } from 'react';
+import { Box, Button } from '@material-ui/core';
 import { nanoid } from 'nanoid';
 // components
 import ProductForm from 'modules/product/containers/components/ProductForm';
@@ -42,7 +42,19 @@ const initialMealCalculatorState: MealCalculatorState = {
 function reducer(state: MealCalculatorState, action: MealCalculatorAction) {
   switch (action.type) {
     case MealCalculatorActionEnum.ADD_PRODUCT: {
-      return state;
+      const newMeal: MealProductType = {
+        id: nanoid(),
+        name: '',
+        caloriesPer100g: 0,
+        weight: 0,
+      };
+
+      const updatedState: MealCalculatorState = {
+        ...state,
+        productList: [...state.productList, newMeal],
+      };
+
+      return updatedState;
     }
 
     case MealCalculatorActionEnum.REMOVE_PRODUCT: {
@@ -67,6 +79,10 @@ const MealCaloriCalculator: FC = () => {
 
   const handleChangeProduct = useCallback(() => {}, []);
 
+  const addProduct = useCallback(() => {
+    dispatch({ type: MealCalculatorActionEnum.ADD_PRODUCT });
+  }, []);
+
   return (
     <Box>
       <Box>Meal Calorie Calculator</Box>
@@ -79,11 +95,17 @@ const MealCaloriCalculator: FC = () => {
         {productList.map((product) => {
           return (
             <ProductForm
+              key={product.id}
               product={product}
               changeProduct={handleChangeProduct}
             />
           );
         })}
+      </Box>
+      <Box style={{ textAlign: 'center' }}>
+        <Button variant="contained" color="primary" onClick={addProduct}>
+          Add Product
+        </Button>
       </Box>
     </Box>
   );
