@@ -6,6 +6,12 @@ export const useMealCalorieCalculatorStyles = makeStyles({
     textAlign: 'center',
     padding: '20px',
   },
+  productListInfo: {
+    marginBottom: 10,
+  },
+  productInfo: {
+    fontSize: 24,
+  },
   title: {},
   totalCalorie: {
     fontSize: 28,

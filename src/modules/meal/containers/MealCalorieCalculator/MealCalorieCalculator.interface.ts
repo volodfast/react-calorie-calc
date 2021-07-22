@@ -6,7 +6,6 @@ export type MealProductType = {
 };
 
 export type MealCalculatorState = {
-  total: number;
   productList: MealProductType[];
 };
 

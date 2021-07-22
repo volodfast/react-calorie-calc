@@ -14,7 +14,6 @@ import {
 } from './MealCalorieCalculator.interface';
 
 const initialMealCalculatorState: MealCalculatorState = {
-  total: 0,
   productList: [
     {
       id: nanoid(),
@@ -55,15 +54,19 @@ function reducer(state: MealCalculatorState, action: MealCalculatorAction) {
     }
 
     case MealCalculatorActionEnum.CHANGE_PRODUCT: {
-      const updatedState: MealCalculatorState = {
-        ...state,
-        productList: state.productList.map((product) => {
+      const updatedProductList: MealProductType[] = state.productList.map(
+        (product) => {
           if (product.id !== action.product.id) {
             return product;
           }
 
           return action.product;
-        }),
+        }
+      );
+
+      const updatedState: MealCalculatorState = {
+        ...state,
+        productList: updatedProductList,
       };
 
       return updatedState;
@@ -76,10 +79,14 @@ function reducer(state: MealCalculatorState, action: MealCalculatorAction) {
 }
 
 const MealCaloriCalculator: FC = () => {
-  const [{ productList, total }, dispatch] = useReducer(
+  const [{ productList }, dispatch] = useReducer(
     reducer,
     initialMealCalculatorState
   );
+
+  const total = productList.reduce((acc, product) => {
+    return acc + (product.weight * product.caloriesPer100g) / 100;
+  }, 0);
 
   const handleChangeProduct = useCallback((product: MealProductType) => {
     dispatch({ type: MealCalculatorActionEnum.CHANGE_PRODUCT, product });
@@ -101,8 +108,20 @@ const MealCaloriCalculator: FC = () => {
         <Box className={classNames.title} component="h1">
           Meal Calorie Calculator
         </Box>
+        <Box className={classNames.productListInfo}>
+          {productList.map((product) => {
+            return (
+              <Box key={product.id} className={classNames.productInfo}>
+                <Box component="span">{`${product.name || 'Unknown'}: `}</Box>
+                <Box component="span">
+                  {`${(product.caloriesPer100g * product.weight) / 100} kkal`}
+                </Box>
+              </Box>
+            );
+          })}
+        </Box>
         <Box className={classNames.totalCalorie}>
-          Total: <Box component="span">{total}</Box>
+          Total: <Box component="span">{total}</Box> kkal
         </Box>
       </Box>
       <Box className={classNames.controls}>
