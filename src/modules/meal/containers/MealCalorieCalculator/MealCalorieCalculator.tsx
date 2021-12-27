@@ -1,17 +1,14 @@
-import { FC, useCallback, useReducer } from 'react';
+import { FC } from 'react';
 import { Box, Button } from '@material-ui/core';
 import { nanoid } from 'nanoid';
 // components
 import ProductForm from 'modules/product/components/ProductForm';
+// hooks
+import { useProductList } from './MealCalorieCalculator.hook';
 // styles
 import { useMealCalorieCalculatorStyles } from './MealCalorieCalculator.styled';
 // interfaces
-import {
-  MealCalculatorAction,
-  MealCalculatorActionEnum,
-  MealCalculatorState,
-  MealProductType,
-} from './MealCalorieCalculator.interface';
+import { MealCalculatorState } from './MealCalorieCalculator.interface';
 
 const initialMealCalculatorState: MealCalculatorState = {
   productList: [
@@ -24,81 +21,13 @@ const initialMealCalculatorState: MealCalculatorState = {
   ],
 };
 
-function reducer(state: MealCalculatorState, action: MealCalculatorAction) {
-  switch (action.type) {
-    case MealCalculatorActionEnum.ADD_PRODUCT: {
-      const newMeal: MealProductType = {
-        id: nanoid(),
-        name: '',
-        caloriesPer100g: 0,
-        weight: 0,
-      };
-
-      const updatedState: MealCalculatorState = {
-        ...state,
-        productList: [...state.productList, newMeal],
-      };
-
-      return updatedState;
-    }
-
-    case MealCalculatorActionEnum.REMOVE_PRODUCT: {
-      const updatedState: MealCalculatorState = {
-        ...state,
-        productList: state.productList.filter(
-          (product) => product.id !== action.id
-        ),
-      };
-
-      return updatedState;
-    }
-
-    case MealCalculatorActionEnum.CHANGE_PRODUCT: {
-      const updatedProductList: MealProductType[] = state.productList.map(
-        (product) => {
-          if (product.id !== action.product.id) {
-            return product;
-          }
-
-          return action.product;
-        }
-      );
-
-      const updatedState: MealCalculatorState = {
-        ...state,
-        productList: updatedProductList,
-      };
-
-      return updatedState;
-    }
-
-    default: {
-      return state;
-    }
-  }
-}
-
 const MealCaloriCalculator: FC = () => {
-  const [{ productList }, dispatch] = useReducer(
-    reducer,
-    initialMealCalculatorState
-  );
+  const { productList, addProduct, changeProduct, removeProduct } =
+    useProductList(initialMealCalculatorState);
 
   const total = productList.reduce((acc, product) => {
     return acc + (product.weight * product.caloriesPer100g) / 100;
   }, 0);
-
-  const handleChangeProduct = useCallback((product: MealProductType) => {
-    dispatch({ type: MealCalculatorActionEnum.CHANGE_PRODUCT, product });
-  }, []);
-
-  const handleAddProduct = useCallback(() => {
-    dispatch({ type: MealCalculatorActionEnum.ADD_PRODUCT });
-  }, []);
-
-  const handleRemoveProduct = useCallback((id: string) => {
-    dispatch({ type: MealCalculatorActionEnum.REMOVE_PRODUCT, id });
-  }, []);
 
   const classNames = useMealCalorieCalculatorStyles();
 
@@ -125,7 +54,7 @@ const MealCaloriCalculator: FC = () => {
         </Box>
       </Box>
       <Box className={classNames.controls}>
-        <Button variant="contained" color="primary" onClick={handleAddProduct}>
+        <Button variant="contained" color="primary" onClick={addProduct}>
           Add Product
         </Button>
       </Box>
@@ -136,8 +65,8 @@ const MealCaloriCalculator: FC = () => {
               <Box key={product.id} className={classNames.productWrapper}>
                 <ProductForm
                   product={product}
-                  onChangeProduct={handleChangeProduct}
-                  onRemoveProduct={handleRemoveProduct}
+                  onChangeProduct={changeProduct}
+                  onRemoveProduct={removeProduct}
                 />
               </Box>
             );
