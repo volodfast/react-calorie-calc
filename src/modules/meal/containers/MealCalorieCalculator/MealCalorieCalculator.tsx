@@ -21,7 +21,7 @@ const initialMealCalculatorState: MealCalculatorState = {
   ],
 };
 
-const MealCaloriCalculator: FC = () => {
+const MealCalorieCalculator: FC = () => {
   const { productList, addProduct, changeProduct, removeProduct } =
     useProductList(initialMealCalculatorState);
 
@@ -81,4 +81,4 @@ const MealCaloriCalculator: FC = () => {
   );
 };
 
-export default MealCaloriCalculator;
+export default MealCalorieCalculator;
