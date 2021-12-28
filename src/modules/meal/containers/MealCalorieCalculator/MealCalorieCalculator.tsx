@@ -7,23 +7,10 @@ import ProductForm from 'modules/product/components/ProductForm';
 import { useProductList } from './MealCalorieCalculator.hook';
 // styles
 import { useMealCalorieCalculatorStyles } from './MealCalorieCalculator.styled';
-// interfaces
-import { MealCalculatorState } from './MealCalorieCalculator.interface';
-
-const initialMealCalculatorState: MealCalculatorState = {
-  productList: [
-    {
-      id: nanoid(),
-      name: 'Buckwheat',
-      caloriesPer100g: 330,
-      weight: 120,
-    },
-  ],
-};
 
 const MealCalorieCalculator: FC = () => {
   const { productList, addProduct, changeProduct, removeProduct } =
-    useProductList(initialMealCalculatorState);
+    useProductList();
 
   const total = productList.reduce((acc, product) => {
     return acc + (product.weight * product.caloriesPer100g) / 100;
