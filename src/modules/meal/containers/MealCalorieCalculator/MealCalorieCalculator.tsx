@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Box, Button } from '@material-ui/core';
-import { nanoid } from 'nanoid';
 // components
 import ProductForm from 'modules/product/components/ProductForm';
+import DropdownToggler from 'modules/core/components/DropdownToggler';
 // hooks
 import { useProductList } from './MealCalorieCalculator.hook';
 // styles
@@ -11,6 +11,12 @@ import { useMealCalorieCalculatorStyles } from './MealCalorieCalculator.styled';
 const MealCalorieCalculator: FC = () => {
   const { productList, addProduct, changeProduct, removeProduct } =
     useProductList();
+
+  const [isTotalBodyOpen, setIsTotalBodyOpen] = useState(false);
+
+  const toggleOpenTotalBody = () => {
+    setIsTotalBodyOpen((prev) => !prev);
+  };
 
   const total = productList.reduce((acc, product) => {
     return acc + (product.weight * product.caloriesPer100g) / 100;
@@ -24,20 +30,34 @@ const MealCalorieCalculator: FC = () => {
         <Box className={classNames.title} component="h1">
           Meal Calorie Calculator
         </Box>
-        <Box className={classNames.productListInfo}>
-          {productList.map((product) => {
-            return (
-              <Box key={product.id} className={classNames.productInfo}>
-                <Box component="span">{`${product.name || 'Unknown'}: `}</Box>
-                <Box component="span">
-                  {`${(product.caloriesPer100g * product.weight) / 100} kkal`}
-                </Box>
-              </Box>
-            );
-          })}
-        </Box>
-        <Box className={classNames.totalCalorie}>
-          Total: <Box component="span">{total}</Box> kkal
+        <Box className={classNames.totalCalories}>
+          <Box component="span" className={classNames.totalCaloriesText}>
+            Total: <Box component="span">{total}</Box> kkal
+          </Box>
+          <Box component="span">
+            <DropdownToggler
+              isOpen={isTotalBodyOpen}
+              onClick={toggleOpenTotalBody}
+            />
+          </Box>
+          {isTotalBodyOpen && (
+            <Box className={classNames.productListInfo}>
+              {productList.map((product) => {
+                return (
+                  <Box key={product.id} className={classNames.productInfo}>
+                    <Box component="span">{`${
+                      product.name || 'Unknown'
+                    }: `}</Box>
+                    <Box component="span">
+                      {`${
+                        (product.caloriesPer100g * product.weight) / 100
+                      } kkal`}
+                    </Box>
+                  </Box>
+                );
+              })}
+            </Box>
+          )}
         </Box>
       </Box>
       <Box className={classNames.controls}>
