@@ -1,10 +1,13 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Box, Button } from '@material-ui/core';
 // components
 import ProductForm from 'modules/product/components/ProductForm';
 import DropdownToggler from 'modules/core/components/DropdownToggler';
 // hooks
-import { useProductList } from './MealCalorieCalculator.hook';
+import {
+  useProductList,
+  useTotalCaloriesBody,
+} from './MealCalorieCalculator.hook';
 // styles
 import { useMealCalorieCalculatorStyles } from './MealCalorieCalculator.styled';
 
@@ -12,11 +15,8 @@ const MealCalorieCalculator: FC = () => {
   const { productList, addProduct, changeProduct, removeProduct } =
     useProductList();
 
-  const [isTotalBodyOpen, setIsTotalBodyOpen] = useState(false);
-
-  const toggleOpenTotalBody = () => {
-    setIsTotalBodyOpen((prev) => !prev);
-  };
+  const { isOpen: isTotalBodyOpen, toggle: toggleOpenTotalBody } =
+    useTotalCaloriesBody();
 
   const total = productList.reduce((acc, product) => {
     return acc + (product.weight * product.caloriesPer100g) / 100;

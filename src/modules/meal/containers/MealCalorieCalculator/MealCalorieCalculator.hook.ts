@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useReducer, useState } from 'react';
 import { nanoid } from 'nanoid';
 import {
   MealCalculatorAction,
@@ -90,5 +90,18 @@ export const useProductList = (initialState?: MealCalculatorState) => {
     changeProduct,
     addProduct,
     removeProduct,
+  };
+};
+
+export const useTotalCaloriesBody = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
+  return {
+    isOpen,
+    toggle,
   };
 };
