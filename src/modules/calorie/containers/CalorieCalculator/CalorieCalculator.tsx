@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, FC } from 'react';
 import { Box, Button, TextField } from '@material-ui/core';
 
-const CalorieCalculator = () => {
+const CalorieCalculator: FC = () => {
   const [product, setProduct] = useState('');
 
   const handleProductChange = useCallback(
@@ -16,8 +16,6 @@ const CalorieCalculator = () => {
   const handleCaloriesChange = useCallback(
     (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       const newCalories = parseInt(ev.target.value);
-
-      console.log('newCalories: ', newCalories);
 
       if (typeof newCalories === 'number' && !Number.isNaN(newCalories)) {
         setCalories(newCalories);
