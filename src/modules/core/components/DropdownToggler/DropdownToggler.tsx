@@ -1,11 +1,8 @@
 import { FC } from 'react';
 import { Box } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-
-type DropdownTogglerProps = {
-  isOpen: boolean;
-  onClick: () => void;
-};
+// interfaces
+import { DropdownTogglerProps } from './DropdownToggler.interface';
 
 const DropdownToggler: FC<DropdownTogglerProps> = ({ isOpen, onClick }) => {
   const iconStyles: React.CSSProperties = {
