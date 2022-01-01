@@ -19,8 +19,15 @@ const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
     })
     .join('\n');
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(textValue);
+  };
+
   return (
     <div className={classNames.container}>
+      <button className={classNames.copyButton} onClick={handleCopy}>
+        Copy
+      </button>
       <textarea className={classNames.textarea} value={textValue} />
     </div>
   );
