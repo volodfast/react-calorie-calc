@@ -17,7 +17,7 @@ const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
         (product.caloriesPer100g * product.weight) / 100
       )}kkal`;
     })
-    .join('/n');
+    .join('\n');
 
   return (
     <div className={classNames.container}>

@@ -5,6 +5,6 @@ export const useMealTextRepresentationStyles = makeStyles({
   textarea: {
     resize: 'none',
     width: '100%',
-    minHeight: 300,
+    minHeight: 100,
   },
 });
