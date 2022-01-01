@@ -18,11 +18,7 @@ export const useMealCalorieCalculatorStyles = makeStyles({
   totalCalories: {
     fontSize: 28,
   },
-  totalCaloriesText: {
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
+  totalCaloriesText: {},
   productListPlaceholder: {
     height: 80,
     display: 'flex',

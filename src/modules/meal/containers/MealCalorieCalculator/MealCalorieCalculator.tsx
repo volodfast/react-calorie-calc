@@ -34,12 +34,14 @@ const MealCalorieCalculator: FC = () => {
           <Box component="span" className={classNames.totalCaloriesText}>
             Total: <Box component="span">{total}</Box> kkal
           </Box>
-          <Box component="span">
-            <DropdownToggler
-              isOpen={isTotalBodyOpen}
-              onClick={toggleOpenTotalBody}
-            />
-          </Box>
+          {productList.length > 0 && (
+            <Box component="span">
+              <DropdownToggler
+                isOpen={isTotalBodyOpen}
+                onClick={toggleOpenTotalBody}
+              />
+            </Box>
+          )}
           {isTotalBodyOpen && (
             <Box className={classNames.productListInfo}>
               {productList.map((product) => {
