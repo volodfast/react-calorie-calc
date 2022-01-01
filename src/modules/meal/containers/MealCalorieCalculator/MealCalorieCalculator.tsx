@@ -10,6 +10,7 @@ import {
 } from './MealCalorieCalculator.hook';
 // styles
 import { useMealCalorieCalculatorStyles } from './MealCalorieCalculator.styled';
+import MealTextRepresentation from 'modules/meal/components/MealTextRepresentation';
 
 const MealCalorieCalculator: FC = () => {
   const { productList, addProduct, changeProduct, removeProduct } =
@@ -86,6 +87,7 @@ const MealCalorieCalculator: FC = () => {
           Add some products into your meal!
         </Box>
       )}
+      <MealTextRepresentation productList={productList} />
     </Box>
   );
 };
