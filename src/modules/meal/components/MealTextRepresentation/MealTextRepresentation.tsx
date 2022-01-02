@@ -6,10 +6,22 @@ import { useMealTextRepresentationStyles } from './MealTextRepresentation.styled
 
 const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
   productList,
+  mealType,
 }) => {
   const classNames = useMealTextRepresentationStyles();
 
-  const textValue = productList
+  const totalCalories = Math.ceil(
+    productList.reduce(
+      (acc, product) => acc + (product.weight * product.caloriesPer100g) / 100,
+      0
+    )
+  );
+
+  const currentDate = new Date(Date.now());
+  const dateString = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+
+  const mealTypeText = `	- ${mealType} - ${dateString} - (${totalCalories} kkal)\n`;
+  const productListText = productList
     .map((product) => {
       return `		${product.name} - ${product.weight}g - (${
         product.caloriesPer100g
@@ -18,6 +30,8 @@ const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
       )}kkal`;
     })
     .join('\n');
+
+  const textValue = mealTypeText + productListText;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(textValue);

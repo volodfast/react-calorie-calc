@@ -115,7 +115,7 @@ const MealCalorieCalculator: FC = () => {
           Add some products into your meal!
         </Box>
       )}
-      <MealTextRepresentation productList={productList} />
+      <MealTextRepresentation productList={productList} mealType={mealType} />
     </Box>
   );
 };
