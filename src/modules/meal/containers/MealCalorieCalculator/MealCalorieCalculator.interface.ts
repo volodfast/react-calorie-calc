@@ -19,3 +19,10 @@ export type MealCalculatorAction =
   | { type: MealCalculatorActionEnum.ADD_PRODUCT }
   | { type: MealCalculatorActionEnum.REMOVE_PRODUCT; id: string }
   | { type: MealCalculatorActionEnum.CHANGE_PRODUCT; product: MealProductType };
+
+export type MealType = 'dinner' | 'supper' | 'intermeal' | 'breakfast';
+
+export type MealTypeOption = {
+  label: string;
+  value: MealType;
+};

@@ -5,6 +5,8 @@ import {
   MealCalculatorActionEnum,
   MealCalculatorState,
   MealProductType,
+  MealType,
+  MealTypeOption,
 } from './MealCalorieCalculator.interface';
 
 const defaultInitialProductListState: MealCalculatorState = {
@@ -103,5 +105,24 @@ export const useTotalCaloriesBody = () => {
   return {
     isOpen,
     toggle,
+  };
+};
+
+const mealTypeList: MealTypeOption[] = [
+  { label: 'dinner', value: 'dinner' },
+  { label: 'supper', value: 'supper' },
+  { label: 'intermeal', value: 'intermeal' },
+  { label: 'breakfast', value: 'breakfast' },
+];
+
+export const useMealType = () => {
+  const [selectedMealType, setSelectedMealType] = useState<
+    MealType | undefined
+  >(undefined);
+
+  return {
+    mealType: selectedMealType,
+    changeMealType: setSelectedMealType,
+    mealTypeList,
   };
 };

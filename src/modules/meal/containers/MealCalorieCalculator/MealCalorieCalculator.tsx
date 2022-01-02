@@ -3,14 +3,17 @@ import { Box, Button } from '@material-ui/core';
 // components
 import ProductForm from 'modules/product/components/ProductForm';
 import DropdownToggler from 'modules/core/components/DropdownToggler';
+import MealTextRepresentation from 'modules/meal/components/MealTextRepresentation';
 // hooks
 import {
+  useMealType,
   useProductList,
   useTotalCaloriesBody,
 } from './MealCalorieCalculator.hook';
+// interfaces
+import { MealType } from './MealCalorieCalculator.interface';
 // styles
 import { useMealCalorieCalculatorStyles } from './MealCalorieCalculator.styled';
-import MealTextRepresentation from 'modules/meal/components/MealTextRepresentation';
 
 const MealCalorieCalculator: FC = () => {
   const { productList, addProduct, changeProduct, removeProduct } =
@@ -18,6 +21,8 @@ const MealCalorieCalculator: FC = () => {
 
   const { isOpen: isTotalBodyOpen, toggle: toggleOpenTotalBody } =
     useTotalCaloriesBody();
+
+  const { mealType, mealTypeList, changeMealType } = useMealType();
 
   const total = productList.reduce((acc, product) => {
     return acc + (product.weight * product.caloriesPer100g) / 100;
@@ -30,6 +35,29 @@ const MealCalorieCalculator: FC = () => {
       <Box className={classNames.infoContainer}>
         <Box className={classNames.title} component="h1">
           Meal Calorie Calculator
+        </Box>
+        <Box>
+          <Box>Meal Type:</Box>
+          <select
+            value={mealType}
+            onChange={(ev) => {
+              const selectedMealType = ev.target.value as MealType;
+
+              changeMealType(selectedMealType);
+            }}
+            defaultValue={''}
+          >
+            <option value="" disabled hidden>
+              -- Select meal type --
+            </option>
+            {mealTypeList.map((mealTypeOption) => {
+              return (
+                <option key={mealTypeOption.value} value={mealTypeOption.value}>
+                  {mealTypeOption.label}
+                </option>
+              );
+            })}
+          </select>
         </Box>
         <Box className={classNames.totalCalories}>
           <Box component="span" className={classNames.totalCaloriesText}>
