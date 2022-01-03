@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Box, Button } from '@material-ui/core';
 // components
 import ProductForm from 'modules/product/components/ProductForm';
@@ -24,9 +24,13 @@ const MealCalorieCalculator: FC = () => {
 
   const { mealType, mealTypeList, changeMealType } = useMealType();
 
-  const total = productList.reduce((acc, product) => {
-    return acc + (product.weight * product.caloriesPer100g) / 100;
-  }, 0);
+  const total = useMemo(
+    () =>
+      productList.reduce((acc, product) => {
+        return acc + (product.weight * product.caloriesPer100g) / 100;
+      }, 0),
+    [productList]
+  );
 
   const classNames = useMealCalorieCalculatorStyles();
 
@@ -76,9 +80,9 @@ const MealCalorieCalculator: FC = () => {
               {productList.map((product) => {
                 return (
                   <Box key={product.id} className={classNames.productInfo}>
-                    <Box component="span">{`${
-                      product.name || 'Unknown'
-                    }: `}</Box>
+                    <Box component="span">
+                      {`${product.name || 'Unknown'}: `}
+                    </Box>
                     <Box component="span">
                       {`${
                         (product.caloriesPer100g * product.weight) / 100
