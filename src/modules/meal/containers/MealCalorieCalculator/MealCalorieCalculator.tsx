@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { Box, Button } from '@material-ui/core';
 // components
 import ProductForm from 'modules/product/components/ProductForm';
@@ -23,6 +23,8 @@ const MealCalorieCalculator: FC = () => {
     useTotalCaloriesBody();
 
   const { mealType, mealTypeList, changeMealType } = useMealType();
+
+  const [date] = useState(new Date());
 
   const total = useMemo(
     () =>
@@ -119,7 +121,11 @@ const MealCalorieCalculator: FC = () => {
           Add some products into your meal!
         </Box>
       )}
-      <MealTextRepresentation productList={productList} mealType={mealType} />
+      <MealTextRepresentation
+        date={date}
+        productList={productList}
+        mealType={mealType}
+      />
     </Box>
   );
 };

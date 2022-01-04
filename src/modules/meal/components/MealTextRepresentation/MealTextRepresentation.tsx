@@ -4,11 +4,8 @@ import { MealTextRepresentationProps } from './MealTextRepresentation.interface'
 // styles
 import { useMealTextRepresentationStyles } from './MealTextRepresentation.styled';
 
-const intl = new Intl.DateTimeFormat('en-US', {
-  weekday: 'long',
-});
-
 const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
+  date,
   productList,
   mealType,
 }) => {
@@ -21,12 +18,25 @@ const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
     )
   );
 
-  const currentDate = new Date(Date.now());
-  const dateString = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+  const dateString = `${date.getHours()}:${date.getMinutes()}`;
 
-  const weekday = intl.format(currentDate).toLocaleLowerCase();
+  const weekday = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+  })
+    .format(date)
+    .toLocaleLowerCase();
+  const monthDay =
+    date.getDate().toString().length == 1
+      ? `0${date.getDate()}`
+      : date.getDate().toString();
+  const month = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+  })
+    .format(date)
+    .toLocaleLowerCase();
+  const year = date.getFullYear();
 
-  const dayText = `(${weekday}):\n`;
+  const dayText = `${monthDay} ${month} ${year} (${weekday}):\n`;
 
   const mealTypeText = `	- ${
     mealType || 'unknown meal type'
