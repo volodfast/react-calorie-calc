@@ -65,7 +65,7 @@ const MealCalorieCalculator: FC = () => {
         </Box>
         <Box className={classNames.totalCalories}>
           <Box component="span" className={classNames.totalCaloriesText}>
-            Total: <Box component="span">{total}</Box> kkal
+            Total: <Box component="span">{total}</Box> kcal
           </Box>
           {productList.length > 0 && (
             <Box component="span">
@@ -86,7 +86,7 @@ const MealCalorieCalculator: FC = () => {
                     <Box component="span">
                       {`${
                         (product.caloriesPer100g * product.weight) / 100
-                      } kkal`}
+                      } kcal`}
                     </Box>
                   </Box>
                 );
