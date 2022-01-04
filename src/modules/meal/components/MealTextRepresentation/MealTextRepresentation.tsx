@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 // utils
-import { getDateText } from './MealTextRepresentation.utils';
+import { getDateText, getMealTypeText } from './MealTextRepresentation.utils';
 // interfaces
 import { MealTextRepresentationProps } from './MealTextRepresentation.interface';
 // styles
@@ -20,15 +20,13 @@ const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
     )
   );
 
-  const dateString = `${date.getHours()}:${date.getMinutes()}`;
-
   const dayText = useMemo(() => {
     return getDateText(date);
   }, [date]);
 
-  const mealTypeText = `	- ${
-    mealType || 'unknown meal type'
-  } - ${dateString} - (${totalCalories} kkal)\n`;
+  const mealTypeText = useMemo(() => {
+    return getMealTypeText({ date, calories: totalCalories, mealType });
+  }, [date, totalCalories, mealType]);
 
   const productListText = productList
     .map((product) => {
