@@ -49,7 +49,14 @@ const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
       <button className={classNames.copyButton} onClick={handleCopy}>
         Copy
       </button>
-      <textarea className={classNames.textarea} value={textValue} readOnly />
+      <textarea
+        className={classNames.textarea}
+        value={textValue}
+        readOnly
+        style={{
+          tabSize: 2,
+        }}
+      />
     </div>
   );
 };
