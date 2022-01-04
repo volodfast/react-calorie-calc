@@ -4,6 +4,10 @@ import { MealTextRepresentationProps } from './MealTextRepresentation.interface'
 // styles
 import { useMealTextRepresentationStyles } from './MealTextRepresentation.styled';
 
+const intl = new Intl.DateTimeFormat('en-US', {
+  weekday: 'long',
+});
+
 const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
   productList,
   mealType,
@@ -20,7 +24,14 @@ const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
   const currentDate = new Date(Date.now());
   const dateString = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
 
-  const mealTypeText = `	- ${mealType} - ${dateString} - (${totalCalories} kkal)\n`;
+  const weekday = intl.format(currentDate).toLocaleLowerCase();
+
+  const dayText = `(${weekday}):\n`;
+
+  const mealTypeText = `	- ${
+    mealType || 'unknown meal type'
+  } - ${dateString} - (${totalCalories} kkal)\n`;
+
   const productListText = productList
     .map((product) => {
       return `		${product.name} - ${product.weight}g - (${
@@ -31,7 +42,7 @@ const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
     })
     .join('\n');
 
-  const textValue = mealTypeText + productListText;
+  const textValue = dayText + mealTypeText + productListText;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(textValue);
