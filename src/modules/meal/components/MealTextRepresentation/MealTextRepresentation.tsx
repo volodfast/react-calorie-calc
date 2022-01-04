@@ -1,4 +1,6 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
+// utils
+import { getDateText } from './MealTextRepresentation.utils';
 // interfaces
 import { MealTextRepresentationProps } from './MealTextRepresentation.interface';
 // styles
@@ -20,23 +22,9 @@ const MealTextRepresentation: FC<MealTextRepresentationProps> = ({
 
   const dateString = `${date.getHours()}:${date.getMinutes()}`;
 
-  const weekday = new Intl.DateTimeFormat('en-US', {
-    weekday: 'long',
-  })
-    .format(date)
-    .toLocaleLowerCase();
-  const monthDay =
-    date.getDate().toString().length == 1
-      ? `0${date.getDate()}`
-      : date.getDate().toString();
-  const month = new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-  })
-    .format(date)
-    .toLocaleLowerCase();
-  const year = date.getFullYear();
-
-  const dayText = `${monthDay} ${month} ${year} (${weekday}):\n`;
+  const dayText = useMemo(() => {
+    return getDateText(date);
+  }, [date]);
 
   const mealTypeText = `	- ${
     mealType || 'unknown meal type'
